@@ -1,0 +1,39 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://0.0.0.0:8080
+    description: Generated server url
+paths:
+  /product:
+    get:
+      tags:
+        - Изделия
+      operationId: getAll
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        number:
+          type: integer
+          format: int64
+        active:
+          type: boolean
+        batchId:
+          type: integer
+          format: int64

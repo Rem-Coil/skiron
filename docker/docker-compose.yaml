@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  skiron_db:
+    image: postgres:15.4-alpine
+    environment:
+      POSTGRES_DB: "skiron"
+      POSTGRES_USER: "sas"
+      POSTGRES_PASSWORD: "sas"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - skiron-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  skiron-data:
