@@ -4,12 +4,10 @@ import com.remcoil.skiron.database.entity.OperationType;
 import com.remcoil.skiron.database.entity.Specification;
 import com.remcoil.skiron.database.repository.OperationTypeRepository;
 import com.remcoil.skiron.model.operation.OperationTypeBrief;
-
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class OperationTypeService {
@@ -23,7 +21,7 @@ public class OperationTypeService {
         return operationTypeRepository.saveAll(operationTypes
                 .stream()
                 .map(it -> it.toEntity(specification))
-                .collect(Collectors.toList())
+                .toList()
         );
     }
 

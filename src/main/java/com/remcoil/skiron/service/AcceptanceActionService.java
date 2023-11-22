@@ -2,11 +2,10 @@ package com.remcoil.skiron.service;
 
 import com.remcoil.skiron.database.repository.AcceptanceActionRepository;
 import com.remcoil.skiron.model.action.acceptance.AcceptanceActionBrief;
-import com.remcoil.skiron.model.action.acceptance.AcceptanceActionRequest;
+import com.remcoil.skiron.model.action.acceptance.AcceptanceActionPostRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AcceptanceActionService {
@@ -19,10 +18,10 @@ public class AcceptanceActionService {
     public List<AcceptanceActionBrief> getAll() {
         return acceptanceActionRepository.findAll().stream()
                 .map(AcceptanceActionBrief::fromEntity)
-                .collect(Collectors.toList());
+                .toList();
     }
 
-    public AcceptanceActionBrief create(AcceptanceActionRequest actionRequest) {
+    public AcceptanceActionBrief create(AcceptanceActionPostRequest actionRequest) {
         return AcceptanceActionBrief.fromEntity(
                 acceptanceActionRepository.save(actionRequest.toEntity())
         );

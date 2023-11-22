@@ -20,4 +20,15 @@ public record KitFull(
                 kit.getSpecificationId()
         );
     }
+
+    public Kit toEntity() {
+        return new Kit(
+                id,
+                kitNumber,
+                batchesQuantity,
+                batchSize,
+                acceptancePercentage,
+                specificationId
+        );
+    }
 }

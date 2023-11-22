@@ -5,7 +5,7 @@ import com.remcoil.skiron.database.entity.ControlAction;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record ControlActionRequest(
+public record ControlActionPostRequest(
         LocalDateTime doneTime,
         boolean successful,
         ControlAction.ControlType controlType,

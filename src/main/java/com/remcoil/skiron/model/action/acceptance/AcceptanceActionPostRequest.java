@@ -5,7 +5,7 @@ import com.remcoil.skiron.database.entity.AcceptanceAction;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record AcceptanceActionRequest(
+public record AcceptanceActionPostRequest(
         LocalDateTime doneTime,
         long productId,
         UUID employeeId

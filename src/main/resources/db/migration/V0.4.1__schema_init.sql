@@ -50,11 +50,14 @@ create table employees
     id         uuid        default gen_random_uuid() primary key,
     first_name varchar(32)                    not null,
     last_name  varchar(32)                    not null,
-    phone      varchar(16)                    not null,
-    password   varchar(32),
+    phone      varchar(32)                    not null,
+    password   varchar(128),
     active     boolean     default true,
     role       varchar(32) default 'OPERATOR' not null
 );
+
+insert into employees (first_name, last_name, phone, password, role)
+values ('RemCoil', 'Admin', '2006', '$2a$12$3Co88SfOO/Ce/UnOtN0hm.iTESIjskCrDF89QbmUnfjQ9QQH2OZaa', 'ADMIN');
 
 create table actions
 (

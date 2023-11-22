@@ -5,14 +5,14 @@ import com.remcoil.skiron.model.operation.OperationTypeBrief;
 
 import java.util.List;
 
-public record SpecificationRequest(
+public record SpecificationPostRequest(
         String specificationTitle,
         String productType,
         int testedPercentage,
         List<OperationTypeBrief> operationTypes
 ) {
 
-    public Specification toCreateEntity() {
+    public Specification toEntity() {
         return new Specification(
                 specificationTitle,
                 productType,

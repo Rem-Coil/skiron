@@ -1,14 +1,16 @@
 package com.remcoil.skiron.service;
 
+import com.remcoil.skiron.database.entity.Batch;
 import com.remcoil.skiron.database.entity.Kit;
 import com.remcoil.skiron.database.repository.KitRepository;
+import com.remcoil.skiron.exception.EntryDoesNotExistException;
 import com.remcoil.skiron.model.kit.KitFull;
-import com.remcoil.skiron.model.kit.KitRequest;
+import com.remcoil.skiron.model.kit.KitPostRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class KitService {
@@ -20,16 +22,30 @@ public class KitService {
         this.batchService = batchService;
     }
 
-    @Transactional
-    public KitFull create(KitRequest kitRequest) {
-        Kit kit = kitRepository.save(kitRequest.toEntity());
-        batchService.create(kit);
-        return KitFull.fromEntity(kit);
-    }
-
     public List<KitFull> getAll() {
         return kitRepository.findAll().stream()
                 .map(KitFull::fromEntity)
-                .collect(Collectors.toList());
+                .toList();
+    }
+
+    @Transactional
+    public KitFull create(KitPostRequest kitRequest) {
+        KitFull kit = KitFull.fromEntity(kitRepository.save(kitRequest.toEntity()));
+        batchService.create(kit, 1);
+        return kit;
+    }
+
+    @Transactional
+    public void update(KitFull newKit) {
+        Optional<Kit> kitOptional = kitRepository.findById(newKit.id());
+        if (kitOptional.isEmpty()) {
+            throw new EntryDoesNotExistException("Not Found");
+        }
+        KitFull oldKit = KitFull.fromEntity(kitOptional.get());
+        List<Batch> batches = batchService.getByKitId(newKit.id());
+
+        batchService.resizeBatches(oldKit, newKit, batches);
+        batchService.updateBatchesQuantity(oldKit, newKit, batches);
+        kitRepository.save(newKit.toEntity());
     }
 }

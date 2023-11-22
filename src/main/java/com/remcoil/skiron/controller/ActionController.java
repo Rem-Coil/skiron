@@ -1,16 +1,16 @@
 package com.remcoil.skiron.controller;
 
 import com.remcoil.skiron.model.action.ActionBrief;
-import com.remcoil.skiron.model.action.ActionRequest;
+import com.remcoil.skiron.model.action.ActionPostRequest;
 import com.remcoil.skiron.service.ActionService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@SecurityRequirement(name = "jwt")
+@RequestMapping("api/v4/action")
 public class ActionController {
     private final ActionService actionService;
 
@@ -18,13 +18,13 @@ public class ActionController {
         this.actionService = actionService;
     }
 
-    @GetMapping("/action")
+    @GetMapping
     public List<ActionBrief> getAll() {
         return actionService.getAll();
     }
 
-    @PostMapping("/action")
-    public ActionBrief create(@RequestBody ActionRequest actionRequest) {
+    @PostMapping
+    public List<ActionBrief> create(@RequestBody ActionPostRequest actionRequest) {
         return actionService.create(actionRequest);
     }
 }

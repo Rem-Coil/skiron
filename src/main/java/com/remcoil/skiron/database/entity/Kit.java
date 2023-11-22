@@ -1,12 +1,14 @@
 package com.remcoil.skiron.database.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "kits")
 public class Kit {
     @Id
@@ -27,7 +29,4 @@ public class Kit {
         this.specificationId = specificationId;
     }
 
-    public int productQuantity() {
-        return batchesQuantity * batchSize;
-    }
 }

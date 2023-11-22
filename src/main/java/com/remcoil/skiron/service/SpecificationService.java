@@ -6,7 +6,7 @@ import com.remcoil.skiron.database.repository.SpecificationRepository;
 import com.remcoil.skiron.exception.EntryDoesNotExistException;
 import com.remcoil.skiron.model.specification.SpecificationBrief;
 import com.remcoil.skiron.model.specification.SpecificationFull;
-import com.remcoil.skiron.model.specification.SpecificationRequest;
+import com.remcoil.skiron.model.specification.SpecificationPostRequest;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +29,7 @@ public class SpecificationService {
         return specificationRepository.findAll()
                 .stream()
                 .map(SpecificationBrief::fromEntity)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public SpecificationFull getById(Long id) {
@@ -43,8 +43,8 @@ public class SpecificationService {
 
 
     @Transactional
-    public SpecificationFull create(SpecificationRequest specificationRequest) {
-        Specification specification = specificationRepository.save(specificationRequest.toCreateEntity());
+    public SpecificationFull create(SpecificationPostRequest specificationRequest) {
+        Specification specification = specificationRepository.save(specificationRequest.toEntity());
         List<OperationType> operationTypes = operationTypeService.create(specificationRequest.operationTypes(), specification);
 
         specification.setOperationTypes(operationTypes);

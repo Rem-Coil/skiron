@@ -1,0 +1,18 @@
+spring:
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        password: sas
+        url: jdbc:postgresql://localhost:5432/skiron
+        username: sas
+    jpa:
+        hibernate:
+            naming:
+                physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+        properties:
+            hibernate:
+                format_sql: true
+        show-sql: true
+
+jwt:
+    secret: sasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasa
+    lifetime: 30

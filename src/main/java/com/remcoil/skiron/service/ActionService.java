@@ -2,11 +2,10 @@ package com.remcoil.skiron.service;
 
 import com.remcoil.skiron.database.repository.ActionRepository;
 import com.remcoil.skiron.model.action.ActionBrief;
-import com.remcoil.skiron.model.action.ActionRequest;
+import com.remcoil.skiron.model.action.ActionPostRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ActionService {
@@ -19,12 +18,12 @@ public class ActionService {
     public List<ActionBrief> getAll() {
         return actionRepository.findAll().stream()
                 .map(ActionBrief::fromEntity)
-                .collect(Collectors.toList());
+                .toList();
     }
 
-    public ActionBrief create(ActionRequest actionRequest) {
-        return ActionBrief.fromEntity(
-                actionRepository.save(actionRequest.toEntity())
+    public List<ActionBrief> create(ActionPostRequest actionRequest) {
+        return ActionBrief.fromEntities(
+                actionRepository.saveAll(actionRequest.toEntities())
         );
     }
 }

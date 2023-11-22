@@ -2,7 +2,7 @@ package com.remcoil.skiron.model.kit;
 
 import com.remcoil.skiron.database.entity.Kit;
 
-public record KitRequest(
+public record KitPostRequest(
         String kitNumber,
         int batchesQuantity,
         int batchSize,
