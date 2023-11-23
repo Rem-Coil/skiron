@@ -4,6 +4,7 @@ import com.remcoil.skiron.exception.EntryAlreadyExistException;
 import com.remcoil.skiron.exception.InvalidPasswordException;
 import com.remcoil.skiron.model.employee.EmployeeCredentials;
 import com.remcoil.skiron.model.employee.EmployeeDetails;
+import com.remcoil.skiron.model.employee.EmployeeFull;
 import com.remcoil.skiron.model.employee.EmployeeRegisterData;
 import com.remcoil.skiron.model.response.JwtResponse;
 import com.remcoil.skiron.util.JwtUtils;
@@ -33,6 +34,14 @@ public class AuthenticationService {
         return new JwtResponse(
                 jwtUtils.generateToken((EmployeeDetails) authenticate.getPrincipal())
         );
+    }
+
+    public void updateEmployee(EmployeeFull employeeFull) {
+        employeeService.getById(employeeFull.id());
+        if (!employeeFull.passwordIsValid()) {
+            throw new InvalidPasswordException("Not equal");
+        }
+        employeeService.update(employeeFull.toEntity(passwordEncoder));
     }
 
     @Transactional

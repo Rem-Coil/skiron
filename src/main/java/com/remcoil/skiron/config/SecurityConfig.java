@@ -47,8 +47,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(HttpMethod.POST, "/api/v4/specification/**", "/api/v4/kit/**").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.PUT, "/api/v4/specification/**", "/api/v4/kit/**").hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.DELETE, "/api/v4/specification/**", "/api/v4/kit/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/api/v4/specification/**", "/api/v4/kit/**", "/api/v4/employee/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/api/v4/specification/**", "/api/v4/kit/**", "/api/v4/employee/**").hasRole("ADMIN")
                                 .requestMatchers("/api/v4/control-action/**", "/api/v4/acceptance-action").hasAnyRole("ADMIN", "QUALITY_ENGINEER")
                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                                 .requestMatchers("/api/v4/auth/**", "/error/**").permitAll()
