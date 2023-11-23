@@ -8,6 +8,7 @@ import com.remcoil.skiron.model.specification.SpecificationBrief;
 import com.remcoil.skiron.model.specification.SpecificationFull;
 import com.remcoil.skiron.model.specification.SpecificationPostRequest;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,14 +17,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class SpecificationService {
     private final SpecificationRepository specificationRepository;
     private final OperationTypeService operationTypeService;
-
-    public SpecificationService(SpecificationRepository specificationRepository, OperationTypeService operationTypeService) {
-        this.specificationRepository = specificationRepository;
-        this.operationTypeService = operationTypeService;
-    }
 
     public List<SpecificationBrief> getAll() {
         return specificationRepository.findAll()

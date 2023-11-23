@@ -4,6 +4,7 @@ import com.remcoil.skiron.database.entity.Employee;
 import com.remcoil.skiron.database.repository.EmployeeRepository;
 import com.remcoil.skiron.model.employee.EmployeeDetails;
 import com.remcoil.skiron.model.employee.EmployeePublicData;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -12,12 +13,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class EmployeeService implements UserDetailsService {
     private final EmployeeRepository employeeRepository;
-
-    public EmployeeService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
 
     public List<EmployeePublicData> getAll() {
         return employeeRepository.findAll().stream()

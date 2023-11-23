@@ -24,7 +24,17 @@ public class ControlActionController {
     }
 
     @PostMapping
-    public ControlActionBrief create(@RequestBody ControlActionPostRequest actionRequest) {
+    public List<ControlActionBrief> create(@RequestBody ControlActionPostRequest actionRequest) {
         return controlActionService.create(actionRequest);
+    }
+
+    @PutMapping
+    public ControlActionBrief update(@RequestBody ControlActionBrief actionBrief) {
+        return controlActionService.update(actionBrief);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable("id") long id) {
+        controlActionService.deleteById(id);
     }
 }

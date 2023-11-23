@@ -12,9 +12,19 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Modifying
-    @Query("delete from Product p where p.productNumber > :ceilingNumber and p.batchId in :batchesIdList")
+    @Query("delete from Product where productNumber > :ceilingNumber and batchId in :batchesIdList")
     void deleteWithHigherNumber(
             @Param("ceilingNumber") int ceilingNumber,
             @Param("batchesIdList") List<Long> batchesIdList
     );
+
+    @Modifying
+    @Query("delete from Product where batchId = :batchId and active = false")
+    void deleteInactiveByBatch(@Param("batchId") long id);
+
+    @Modifying
+    @Query("update Product set locked = :status where id = :id")
+    void setLockStatus(@Param("id") Long id, @Param("status") boolean status);
+
+    List<Product> findAllByBatchId(Long id);
 }

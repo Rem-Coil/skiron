@@ -1,7 +1,6 @@
 package com.remcoil.skiron.advice;
 
-import com.remcoil.skiron.exception.EntryDoesNotExistException;
-import com.remcoil.skiron.exception.ForbiddenRoleException;
+import com.remcoil.skiron.exception.*;
 import com.remcoil.skiron.model.response.ExceptionDetails;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,13 +16,16 @@ public class ExceptionControllerAdvice {
         return buildResponse(HttpServletResponse.SC_NOT_FOUND, e.getMessage(), request.getRequestURI());
     }
 
-    @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<ExceptionDetails> badCredentialsHandler(BadCredentialsException e, HttpServletRequest request) {
-        return buildResponse(HttpServletResponse.SC_BAD_REQUEST, e.getMessage(), request.getRequestURI());
-    }
-
-    @ExceptionHandler(ForbiddenRoleException.class)
-    public ResponseEntity<ExceptionDetails> runTimeHandler(ForbiddenRoleException e, HttpServletRequest request) {
+    @ExceptionHandler({
+            BadCredentialsException.class,
+            ForbiddenRoleException.class,
+            LockedProductException.class,
+            UnlockedProductException.class,
+            InactiveProductException.class,
+            InvalidPasswordException.class,
+            EntryAlreadyExistException.class
+    })
+    public ResponseEntity<ExceptionDetails> runTimeHandler(Exception e, HttpServletRequest request) {
         return buildResponse(HttpServletResponse.SC_BAD_REQUEST, e.getMessage(), request.getRequestURI());
     }
 

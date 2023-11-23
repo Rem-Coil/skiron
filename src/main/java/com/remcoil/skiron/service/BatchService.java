@@ -4,20 +4,22 @@ import com.remcoil.skiron.database.entity.Batch;
 import com.remcoil.skiron.database.repository.BatchRepository;
 import com.remcoil.skiron.model.batch.BatchFull;
 import com.remcoil.skiron.model.kit.KitFull;
+import com.remcoil.skiron.model.product.ProductFull;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class BatchService {
     private final BatchRepository batchRepository;
     private final ProductService productService;
-
-    public BatchService(BatchRepository batchRepository, ProductService productService) {
-        this.batchRepository = batchRepository;
-        this.productService = productService;
-    }
+    private final ActionService actionService;
+    private final ControlActionService controlActionService;
+    private final AcceptanceActionService acceptanceActionService;
 
     public List<BatchFull> getAll() {
         return batchRepository.findAll().stream()
@@ -56,5 +58,17 @@ public class BatchService {
         } else if (oldKit.batchesQuantity() < newKit.batchesQuantity()) {
             create(newKit, oldKit.batchesQuantity() + 1);
         }
+    }
+
+    @Transactional
+    public void deleteHistory(long id) {
+        List<Long> productsId = productService.getByBatchId(id).stream()
+                .map(ProductFull::id)
+                .toList();
+
+        actionService.deleteByProductsId(productsId);
+        controlActionService.deleteByProductsId(productsId);
+        acceptanceActionService.deleteByProducts(productsId);
+        productService.deleteInactiveByBatchId(id);
     }
 }

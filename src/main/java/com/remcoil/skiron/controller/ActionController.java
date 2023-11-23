@@ -27,4 +27,14 @@ public class ActionController {
     public List<ActionBrief> create(@RequestBody ActionPostRequest actionRequest) {
         return actionService.create(actionRequest);
     }
+
+    @PutMapping
+    public ActionBrief update(@RequestBody ActionBrief actionBrief) {
+        return actionService.update(actionBrief);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable("id") long id) {
+        actionService.deleteById(id);
+    }
 }

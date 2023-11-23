@@ -6,6 +6,7 @@ import com.remcoil.skiron.database.repository.KitRepository;
 import com.remcoil.skiron.exception.EntryDoesNotExistException;
 import com.remcoil.skiron.model.kit.KitFull;
 import com.remcoil.skiron.model.kit.KitPostRequest;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,14 +14,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class KitService {
     private final KitRepository kitRepository;
     private final BatchService batchService;
-
-    public KitService(KitRepository kitRepository, BatchService batchService) {
-        this.kitRepository = kitRepository;
-        this.batchService = batchService;
-    }
 
     public List<KitFull> getAll() {
         return kitRepository.findAll().stream()
@@ -47,5 +44,9 @@ public class KitService {
         batchService.resizeBatches(oldKit, newKit, batches);
         batchService.updateBatchesQuantity(oldKit, newKit, batches);
         kitRepository.save(newKit.toEntity());
+    }
+
+    public void deleteById(long id) {
+        kitRepository.deleteById(id);
     }
 }

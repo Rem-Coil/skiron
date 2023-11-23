@@ -3,9 +3,7 @@ package com.remcoil.skiron.controller;
 import com.remcoil.skiron.model.product.ProductFull;
 import com.remcoil.skiron.service.ProductService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +20,15 @@ public class ProductController {
     @GetMapping
     public List<ProductFull> getAll() {
         return productService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public ProductFull getById(@PathVariable("id") long id) {
+        return productService.getById(id);
+    }
+
+    @PatchMapping("/{id}/deactivate")
+    public void deactivate(@PathVariable long id) {
+        productService.deactivate(id);
     }
 }

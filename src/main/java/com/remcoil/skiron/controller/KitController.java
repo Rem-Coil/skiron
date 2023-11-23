@@ -32,4 +32,9 @@ public class KitController {
     public void update(@RequestBody KitFull kit) {
         kitService.update(kit);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable("id") long id) {
+        kitService.deleteById(id);
+    }
 }

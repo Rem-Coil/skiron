@@ -15,7 +15,7 @@ public record ActionPostRequest(
 ) {
     public List<Action> toEntities() {
         return productsId.stream()
-                .map(id -> new Action(doneTime, repair, operationTypeId, id, employeeId))
+                .map(productId -> new Action(doneTime, repair, operationTypeId, productId, employeeId))
                 .toList();
     }
 }

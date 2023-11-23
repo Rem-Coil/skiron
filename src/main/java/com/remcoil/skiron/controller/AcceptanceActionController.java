@@ -24,7 +24,17 @@ public class AcceptanceActionController {
     }
 
     @PostMapping
-    public AcceptanceActionBrief create(@RequestBody AcceptanceActionPostRequest actionRequest) {
+    public List<AcceptanceActionBrief> create(@RequestBody AcceptanceActionPostRequest actionRequest) {
         return acceptanceActionService.create(actionRequest);
+    }
+
+    @PutMapping
+    public AcceptanceActionBrief update(@RequestBody AcceptanceActionBrief actionBrief) {
+        return acceptanceActionService.update(actionBrief);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable("id") Long id) {
+        acceptanceActionService.deleteById(id);
     }
 }

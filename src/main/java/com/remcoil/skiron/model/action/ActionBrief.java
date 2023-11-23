@@ -30,4 +30,15 @@ public record ActionBrief(
                 .map(ActionBrief::fromEntity)
                 .toList();
     }
+
+    public Action toEntity() {
+        return new Action(
+                id,
+                doneTime,
+                repair,
+                operationTypeId,
+                productId,
+                employeeId
+        );
+    }
 }
