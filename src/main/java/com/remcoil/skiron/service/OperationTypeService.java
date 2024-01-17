@@ -4,6 +4,7 @@ import com.remcoil.skiron.database.entity.OperationType;
 import com.remcoil.skiron.database.entity.Specification;
 import com.remcoil.skiron.database.repository.OperationTypeRepository;
 import com.remcoil.skiron.model.operation.OperationTypeBrief;
+import com.remcoil.skiron.model.operation.OperationTypeFull;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,12 @@ import java.util.Set;
 @AllArgsConstructor
 public class OperationTypeService {
     private final OperationTypeRepository operationTypeRepository;
+
+    protected List<OperationTypeFull> getBySpecificationId(Long id) {
+        return operationTypeRepository.findAllBySpecificationId(id).stream()
+                .map(OperationTypeFull::fromEntity)
+                .toList();
+    }
 
     protected List<OperationType> create(List<OperationTypeBrief> operationTypes, Specification specification) {
         return operationTypeRepository.saveAll(operationTypes

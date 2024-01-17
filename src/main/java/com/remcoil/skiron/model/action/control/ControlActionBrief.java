@@ -1,6 +1,7 @@
 package com.remcoil.skiron.model.action.control;
 
 import com.remcoil.skiron.database.entity.ControlAction;
+import com.remcoil.skiron.database.entity.ControlType;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,7 +11,7 @@ public record ControlActionBrief(
         long id,
         LocalDateTime doneTime,
         boolean successful,
-        ControlAction.ControlType controlType,
+        ControlType controlType,
         String comment,
         boolean needRepair,
         long operationTypeId,

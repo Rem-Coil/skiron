@@ -1,9 +1,9 @@
 spring:
     datasource:
         driver-class-name: org.postgresql.Driver
-        password: sas
-        url: jdbc:postgresql://localhost:5432/skiron
-        username: sas
+        password: ${DB_PASSWORD}
+        username: ${DB_USERNAME}
+        url: ${DB_URL}
     jpa:
         hibernate:
             naming:
@@ -14,5 +14,5 @@ spring:
         show-sql: true
 
 jwt:
-    secret: sasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasasa
-    lifetime: 30
+    secret: ${JWT_SECRET}
+    lifetime: ${DB_LIFETIME}

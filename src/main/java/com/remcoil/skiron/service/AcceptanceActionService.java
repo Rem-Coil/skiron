@@ -1,6 +1,8 @@
 package com.remcoil.skiron.service;
 
+import com.remcoil.skiron.database.entity.view.ExtendedAcceptanceAction;
 import com.remcoil.skiron.database.repository.AcceptanceActionRepository;
+import com.remcoil.skiron.database.repository.ExtendedAcceptanceActionRepository;
 import com.remcoil.skiron.exception.EntryDoesNotExistException;
 import com.remcoil.skiron.model.action.acceptance.AcceptanceActionBrief;
 import com.remcoil.skiron.model.action.acceptance.AcceptanceActionPostRequest;
@@ -13,6 +15,15 @@ import java.util.List;
 @AllArgsConstructor
 public class AcceptanceActionService {
     private final AcceptanceActionRepository acceptanceActionRepository;
+    private final ExtendedAcceptanceActionRepository extendedAcceptanceActionRepository;
+
+    protected List<ExtendedAcceptanceAction> getExtendedByKitId(Long id) {
+        return extendedAcceptanceActionRepository.findAllByKitId(id);
+    }
+
+    protected List<ExtendedAcceptanceAction> getExtendedByBatchId(Long id) {
+        return extendedAcceptanceActionRepository.findAllByBatchId(id);
+    }
 
     public List<AcceptanceActionBrief> getAll() {
         return acceptanceActionRepository.findAll().stream()

@@ -16,14 +16,14 @@ public class Specification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
-    private String specificationTitle;
-    private String productType;
-    private Integer testedPercentage;
+    String specificationTitle;
+    String productType;
+    Integer testedPercentage;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "specification")
-    private List<OperationType> operationTypes = new ArrayList<>();
+    List<OperationType> operationTypes = new ArrayList<>();
 
     public Specification(Long id, String specificationTitle, String productType, Integer testedPercentage) {
         this.id = id;

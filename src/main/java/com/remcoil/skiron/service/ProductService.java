@@ -2,6 +2,8 @@ package com.remcoil.skiron.service;
 
 import com.remcoil.skiron.database.entity.Batch;
 import com.remcoil.skiron.database.entity.Product;
+import com.remcoil.skiron.database.entity.view.ExtendedProduct;
+import com.remcoil.skiron.database.repository.ExtendedProductRepository;
 import com.remcoil.skiron.database.repository.ProductRepository;
 import com.remcoil.skiron.exception.EntryDoesNotExistException;
 import com.remcoil.skiron.model.kit.KitFull;
@@ -15,7 +17,16 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ProductService {
+    private final ExtendedProductRepository extendedProductRepository;
     private final ProductRepository productRepository;
+
+    protected List<ExtendedProduct> getExtendedByKitId(Long id) {
+        return extendedProductRepository.findAllByKitId(id);
+    }
+
+    protected List<ExtendedProduct> getExtendedByBatchId(Long id) {
+        return extendedProductRepository.findAllByBatchId(id);
+    }
 
     public List<ProductFull> getAll() {
         return productRepository.findAll().stream()
@@ -23,20 +34,20 @@ public class ProductService {
                 .toList();
     }
 
-    public List<ProductFull> getByBatchId(long id) {
+    public List<ProductFull> getByBatchId(Long id) {
         return productRepository.findAllByBatchId(id).stream()
                 .map(ProductFull::fromEntity)
                 .toList();
     }
 
-    public void deactivate(long id) {
+    public void deactivate(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new EntryDoesNotExistException("Not Found"));
         productRepository.save(product.deactivated());
         productRepository.save(product.getNew());
     }
 
-    public ProductFull getById(long id) {
+    public ProductFull getById(Long id) {
         return ProductFull.fromEntity(productRepository.findById(id)
                 .orElseThrow(() -> new EntryDoesNotExistException("Not Found")));
     }

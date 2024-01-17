@@ -1,6 +1,6 @@
 package com.remcoil.skiron.util;
 
-import com.remcoil.skiron.database.entity.Employee;
+import com.remcoil.skiron.database.entity.Role;
 import com.remcoil.skiron.model.employee.EmployeeDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -58,7 +58,7 @@ public class JwtUtils {
         return getAllClaims(token).get("phone", String.class);
     }
 
-    public Employee.Role getRole(String token) {
-        return Employee.Role.valueOf(getAllClaims(token).get("role", String.class));
+    public Role getRole(String token) {
+        return Role.valueOf(getAllClaims(token).get("role", String.class));
     }
 }

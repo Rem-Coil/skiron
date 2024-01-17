@@ -1,6 +1,7 @@
 package com.remcoil.skiron.database.repository;
 
 import com.remcoil.skiron.database.entity.Employee;
+import com.remcoil.skiron.database.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,7 +19,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, UUID> {
 
     @Modifying
     @Query("update Employee set role = :role where id = :id")
-    void updateRole(@Param("id") UUID id, @Param("role") Employee.Role role);
+    void updateRole(@Param("id") UUID id, @Param("role") Role role);
 
     Optional<Employee> findByPhone(String phone);
 }

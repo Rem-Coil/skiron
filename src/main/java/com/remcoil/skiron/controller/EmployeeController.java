@@ -1,6 +1,6 @@
 package com.remcoil.skiron.controller;
 
-import com.remcoil.skiron.database.entity.Employee;
+import com.remcoil.skiron.database.entity.Role;
 import com.remcoil.skiron.model.employee.EmployeeFull;
 import com.remcoil.skiron.model.employee.EmployeePublicData;
 import com.remcoil.skiron.service.AuthenticationService;
@@ -36,7 +36,7 @@ public class EmployeeController {
     }
 
     @PatchMapping("/{id}/role")
-    public void updateRole(@PathVariable("id") UUID id, @RequestParam(name = "role") Employee.Role role) {
+    public void updateRole(@PathVariable("id") UUID id, @RequestParam(name = "role") Role role) {
         employeeService.updateRole(id, role);
     }
 

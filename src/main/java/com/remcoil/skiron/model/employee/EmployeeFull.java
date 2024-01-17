@@ -1,6 +1,7 @@
 package com.remcoil.skiron.model.employee;
 
 import com.remcoil.skiron.database.entity.Employee;
+import com.remcoil.skiron.database.entity.Role;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.UUID;
@@ -13,7 +14,7 @@ public record EmployeeFull(
         String password,
         String confirmPassword,
         Boolean active,
-        Employee.Role role
+        Role role
 ) {
     public Employee toEntity(PasswordEncoder passwordEncoder) {
         return new Employee(id, firstName, lastName, phone, passwordEncoder.encode(password), active, role);

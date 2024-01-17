@@ -1,7 +1,9 @@
 package com.remcoil.skiron.controller;
 
+import com.remcoil.skiron.model.progress.KitBriefProgress;
 import com.remcoil.skiron.model.kit.KitFull;
 import com.remcoil.skiron.model.kit.KitPostRequest;
+import com.remcoil.skiron.model.progress.KitProgress;
 import com.remcoil.skiron.service.KitService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,16 @@ public class KitController {
         return kitService.getAll();
     }
 
+    @GetMapping("/progress")
+    public List<KitBriefProgress> getProgress() {
+        return kitService.getProgress();
+    }
+
+    @GetMapping("/{id}/progress")
+    public KitProgress getProgressById(@PathVariable("id") long id) {
+        return kitService.getProgressById(id);
+    }
+
     @PostMapping
     public KitFull create(@RequestBody KitPostRequest kitRequest) {
         return kitService.create(kitRequest);
@@ -37,4 +49,5 @@ public class KitController {
     public void deleteById(@PathVariable("id") long id) {
         kitService.deleteById(id);
     }
+
 }

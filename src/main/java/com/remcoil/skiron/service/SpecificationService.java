@@ -29,6 +29,10 @@ public class SpecificationService {
                 .toList();
     }
 
+    protected List<Specification> getAllFull() {
+        return specificationRepository.findAllAndFetch();
+    }
+
     public SpecificationFull getById(Long id) {
         Optional<Specification> specification = specificationRepository.findByIdAndFetch(id);
         if (specification.isPresent()) {

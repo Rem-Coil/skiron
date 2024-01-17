@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.util.UUID;
 
@@ -25,17 +24,6 @@ public class Employee {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    public enum Role implements GrantedAuthority {
-        OPERATOR,
-        QUALITY_ENGINEER,
-        ADMIN;
-
-        @Override
-        public String getAuthority() {
-            return "ROLE_" + this.name();
-        }
-    }
 
     public Employee(String firstName, String lastName, String phone, String password, Boolean active, Role role) {
         this.firstName = firstName;

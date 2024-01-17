@@ -1,6 +1,7 @@
 package com.remcoil.skiron.service;
 
 import com.remcoil.skiron.database.entity.Employee;
+import com.remcoil.skiron.database.entity.Role;
 import com.remcoil.skiron.database.repository.EmployeeRepository;
 import com.remcoil.skiron.exception.EntryDoesNotExistException;
 import com.remcoil.skiron.exception.ForbiddenRoleException;
@@ -40,8 +41,8 @@ public class EmployeeService implements UserDetailsService {
     }
 
     @Transactional
-    public void updateRole(UUID id, Employee.Role role) {
-        if (role == Employee.Role.ADMIN) {
+    public void updateRole(UUID id, Role role) {
+        if (role == Role.ADMIN) {
             throw new ForbiddenRoleException("Admin creation");
         } else {
             employeeRepository.updateRole(id, role);

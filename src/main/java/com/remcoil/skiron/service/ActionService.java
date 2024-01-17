@@ -2,7 +2,9 @@ package com.remcoil.skiron.service;
 
 import com.remcoil.skiron.database.entity.Action;
 import com.remcoil.skiron.database.entity.ControlAction;
+import com.remcoil.skiron.database.entity.view.ExtendedAction;
 import com.remcoil.skiron.database.repository.ActionRepository;
+import com.remcoil.skiron.database.repository.ExtendedActionRepository;
 import com.remcoil.skiron.exception.EntryDoesNotExistException;
 import com.remcoil.skiron.exception.InactiveProductException;
 import com.remcoil.skiron.exception.LockedProductException;
@@ -21,9 +23,18 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class ActionService {
+    private final ExtendedActionRepository extendedActionRepository;
     private final ControlActionService controlActionService;
     private final ActionRepository actionRepository;
     private final ProductService productService;
+
+    protected List<ExtendedAction> getExtendedByKitId(Long id) {
+        return extendedActionRepository.findAllByKitId(id);
+    }
+
+    protected List<ExtendedAction> getExtendedByBatchId(Long id) {
+        return extendedActionRepository.findAllByBatchId(id);
+    }
 
     public List<ActionBrief> getAll() {
         return actionRepository.findAll().stream()

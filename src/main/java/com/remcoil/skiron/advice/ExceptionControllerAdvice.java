@@ -4,6 +4,7 @@ import com.remcoil.skiron.exception.*;
 import com.remcoil.skiron.model.response.ExceptionDetails;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,8 +26,13 @@ public class ExceptionControllerAdvice {
             InvalidPasswordException.class,
             EntryAlreadyExistException.class
     })
-    public ResponseEntity<ExceptionDetails> runTimeHandler(Exception e, HttpServletRequest request) {
+    public ResponseEntity<ExceptionDetails> applicationBadRequestHandler(Exception e, HttpServletRequest request) {
         return buildResponse(HttpServletResponse.SC_BAD_REQUEST, e.getMessage(), request.getRequestURI());
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ExceptionDetails> constraintViolationHandler(Exception e, HttpServletRequest request) {
+        return buildResponse(HttpServletResponse.SC_CONFLICT, e.getMessage(), request.getRequestURI());
     }
 
     private ResponseEntity<ExceptionDetails> buildResponse(int statusCode, String message, String path) {

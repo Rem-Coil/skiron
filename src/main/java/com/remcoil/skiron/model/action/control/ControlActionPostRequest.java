@@ -1,6 +1,7 @@
 package com.remcoil.skiron.model.action.control;
 
 import com.remcoil.skiron.database.entity.ControlAction;
+import com.remcoil.skiron.database.entity.ControlType;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.UUID;
 public record ControlActionPostRequest(
         LocalDateTime doneTime,
         boolean successful,
-        ControlAction.ControlType controlType,
+        ControlType controlType,
         String comment,
         boolean needRepair,
         long operationTypeId,

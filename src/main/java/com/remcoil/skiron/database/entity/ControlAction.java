@@ -30,11 +30,6 @@ public class ControlAction {
     Long productId;
     UUID employeeId;
 
-    public enum ControlType {
-        OTK,
-        TESTING
-    }
-
     public ControlAction(LocalDateTime doneTime, Boolean successful, ControlType controlType, String comment, Boolean needRepair, Long operationTypeId, Long productId, UUID employeeId) {
         this.doneTime = doneTime;
         this.successful = successful;

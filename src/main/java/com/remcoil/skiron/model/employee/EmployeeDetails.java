@@ -1,6 +1,7 @@
 package com.remcoil.skiron.model.employee;
 
 import com.remcoil.skiron.database.entity.Employee;
+import com.remcoil.skiron.database.entity.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,7 +14,7 @@ public record EmployeeDetails(
         UUID id,
         String phone,
         String password,
-        Employee.Role role
+        Role role
 ) implements UserDetails {
 
     public static EmployeeDetails fromEntity(Employee employee) {

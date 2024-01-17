@@ -11,14 +11,14 @@ import lombok.NoArgsConstructor;
 public class OperationType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
-    private String type;
-    private Integer sequenceNumber;
+    String type;
+    Integer sequenceNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "specification_id")
-    private Specification specification;
+    Specification specification;
 
     public OperationType(Long id, String type, Integer sequenceNumber, Specification specification) {
         this.id = id;
